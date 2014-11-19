@@ -1,4 +1,4 @@
-/**	\author Linus König
+/**	\author Linus König, Candale Elliot
 *	\date 19/11/2014
 *	\version 1.2.0
 *	\file Battle_arena.c	\brief Initialisation du Battle Arena
