@@ -121,7 +121,7 @@ void gestion_pa(int x, int y){
 		if(choix==1){
 			printf("Veuillez saisir le nombre de case que vous souhaitez avancer (%i points d'action restants)\n",pa);
 			scanf("%i",&nb);
-			while(nb<pa){
+			while(nb>pa){
 				printf("il ne vous reste que %i points d'action cette action est donc impossible veuillez resaisir\n",pa);
 				scanf("%i",&nb);
 			}
