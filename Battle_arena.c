@@ -97,9 +97,9 @@ void init(){
 }
 
 /**
-*	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions
+*	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions et le nombre de pieves vivantes par equipe
 */
-void gestion_pa(int x, int y){
+void gestion_pa(int x, int y, int* j1, int* j2){
 	int pa=3;		//PA= Points d'actions
 	int choix=0;		//1 déplacement 2 attacker et 3 tourner
 	int nb=0;		//combien de cases a bouger
@@ -218,6 +218,15 @@ void gestion_pa(int x, int y){
 				if(arena[x-range][y].existe!=vide){
 					arena[x-range][y].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
+					if(arena[x-range][y].vie<=0){
+						arena[x-range][y].existe=vide;
+						if(arena[x-range][y].existe==joueur1){
+							j1--;
+						}
+						if(arena[x-range][y].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -227,6 +236,15 @@ void gestion_pa(int x, int y){
 				if(arena[x+range][y].existe!=vide){
 					arena[x+range][y].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x+range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x+range][y].vie);
+					if(arena[x+range][y].vie<=0){
+						arena[x+range][y].existe=vide;
+						if(arena[x+range][y].existe==joueur1){
+							j1--;
+						}
+						if(arena[x+range][y].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -236,6 +254,15 @@ void gestion_pa(int x, int y){
 				if(arena[x][y-range].existe!=vide){
 					arena[x][y-range].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y-range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
+					if(arena[x][y-range].vie<=0){
+						arena[x][y-range].existe=vide;
+						if(arena[x][y-range].existe==joueur1){
+							j1--;
+						}
+						if(arena[x][y-range].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -245,6 +272,15 @@ void gestion_pa(int x, int y){
 				if(arena[x][y+range].existe!=vide){
 					arena[x][y+range].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y+range].vie);
+					if(arena[x][y+range].vie<=0){
+						arena[x][y+range].existe=vide;
+						if(arena[x][y+range].existe==joueur1){
+							j1--;
+						}
+						if(arena[x][y+range].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -283,6 +319,8 @@ void gestion_pa(int x, int y){
 
 int main(){
 	int charger=0;
+	int p1=P;
+	int p2=P;
 	printf("Continuer la partie sauvegarder ou recommencer une partie? 1=charger 2=new\n");
 	scanf("%i",&charger);
 	while((charger!=1)&&(charger!=2)){
@@ -299,12 +337,11 @@ int main(){
 	}
 	if(charger==2){
 		init();
-	}
+		while((p1!=0)&&(p2!=0)){
+			gestion_pa(1,1,&p1,&p2); //WTF
 
-	/**
-	*	\brief pour tester a partir d'ici docn pas a prendre en compte pour le cas commun
-	*/
-	gestion_pa(0,1);
+		}		
+	}
 	return EXIT_SUCCESS;
 }
 
