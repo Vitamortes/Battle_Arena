@@ -45,7 +45,7 @@ void init(){
 	int j;
 	int x;
 	int y;
-	int compteur=0;
+	int compteur;
 
 	FILE*f1;
 	FILE*f2;
@@ -64,7 +64,7 @@ void init(){
 	/**
 	*	\brief Personnages du joueur1
 	*/
-	for(compteur=0; compteur<=P; compteur++){
+	for(compteur=0; compteur<P; compteur++){
 		printf("Positionnement des personnages du joueur1\n");
 		fscanf(f1, "%i", &x);
 		fscanf(f1, "%i", &y);
@@ -82,7 +82,7 @@ void init(){
 	/**
 	*	\brief Personnages du Joueur2
 	*/
-	for(compteur=0; compteur<=P; compteur++){
+	for(compteur=0; compteur<P; compteur++){
 		printf("Positionnement des personnages du joueur2\n");
 		fscanf(f2, "%i", &x);
 		fscanf(f2, "%i", &y);
