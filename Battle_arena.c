@@ -26,7 +26,7 @@ void affichage(){		/**
             for(i=0;i<N;i++){
                 printf("\n");
                 for(j=0;j<N;j++)
-                    switch (arena[i][j].existe){
+                    switch (arena[j][i].existe){
                         case joueur1 : printf("1 ");
                                        break;
                         case joueur2 : printf("2 ");
@@ -55,8 +55,8 @@ void init(){
 	/**
 	*	\brief Vidage de l'arène
 	*/
-	for(i=0; i<=N; i++){
-		for(j=0; j<=N; j++){
+	for(i=0; i<N; i++){
+		for(j=0; j<N; j++){
 			arena[i][j].existe= vide;
 		}
 	}
@@ -71,7 +71,7 @@ void init(){
 		arena[x][y].existe= joueur1;
 		arena[x][y].attack= rand()%4;
 		arena[x][y].vie= rand()%4;
-		arena[x][y].place= nord;
+		arena[x][y].place= sud;
 		printf("Veuillez saisir un nom pour votre personnage\n");	/**
 										*	\brief Permet de "personaliser" ses personnages
 										*/
@@ -89,7 +89,7 @@ void init(){
 		arena[x][y].existe= joueur2;
 		arena[x][y].attack= rand()%4;
 		arena[x][y].vie= rand()%4;
-		arena[x][y].place= sud;
+		arena[x][y].place= nord;
 		printf("Veuillez saisir un nom pour votre personnage\n");
 		scanf("%s", arena[x][y].nom);
 	}
@@ -110,6 +110,10 @@ void gestion_pa(int x, int y){
 	scanf("%i", &choix);
 	while(pa>0){
 	    affichage();
+		if (choix==0){
+			printf("%s %i points d'action\n Saisir 1 pour déplacement 2 pour attacker ou 3 pour tourner\n",arena[x][y].nom ,pa);
+			scanf("%i", &choix);	
+		}
 		while((choix!=1)&&(choix!=2)&&(choix!=3)){
 			printf("Votre choix est incorrect\n Saisir 1 pour déplacement 2 pour attacker ou 3 pour tourner\n");
 			scanf("%i", &choix);
@@ -131,7 +135,7 @@ void gestion_pa(int x, int y){
 			*		\brief dep<=nb pour ne pas ignorer la colision unité
 			*/
 			if(arena[x][y].place==nord){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x][y-1].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -149,7 +153,7 @@ void gestion_pa(int x, int y){
 			}
 			dep=0;
 			if(arena[x][y].place==sud){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x][y+1].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -167,7 +171,7 @@ void gestion_pa(int x, int y){
 			}
 			dep=0;
 			if(arena[x][y].place==est){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x+1][y].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -185,7 +189,7 @@ void gestion_pa(int x, int y){
 			}
 			dep=0;
 			if(arena[x][y].place==ouest){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x-1][y].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -201,6 +205,7 @@ void gestion_pa(int x, int y){
 					dep++;
 				}
 			}
+		choix=0;
 		}
 
 		/**
@@ -245,6 +250,7 @@ void gestion_pa(int x, int y){
 				}
 				pa--;
 			}
+		choix=0;
 		}
 
 		/**
@@ -270,6 +276,7 @@ void gestion_pa(int x, int y){
 				arena[x][y].place=ouest;
 			}
 			pa--;
+			choix=0;
 		}
 	}
 }
@@ -297,7 +304,7 @@ int main(){
 	/**
 	*	\brief pour tester a partir d'ici docn pas a prendre en compte pour le cas commun
 	*/
-	gestion_pa(1,1);
+	gestion_pa(0,1);
 	return EXIT_SUCCESS;
 }
 
