@@ -11,23 +11,23 @@
 #define P 3
 
 
-typedef struct {int x; int y}t_lieu;
-t_lieu joueur[P*2];
+typedef struct {int x; int y;}t_lieu;
+t_lieu pos_perso[P*2];
 
 
 /** \brief fonction de stockage des positions des personnages qui retourne le tableau ainsi obtenu */
-t_lieu personnage (t_perso arena[N][N]) {
+t_lieu personnage () {
 	int i,j;
 	int n = 0;
 	for (i=0; i < N; i++) {
 		for (j=0; j < N; j++) {
 			if (arena[j][i].existe == joueur1) {
-				joueur[n].x = j;
-				joueur[n].y = i;
+				pos_perso[n].x = j;
+				pos_perso[n].y = i;
 				n++;
 			} else if (arena[j][i].existe == joueur2) {
-				joueur[n+P].x = j;
-				joueur[n+P].y = i;
+				pos_perso[n+P].x = j;
+				pos_perso[n+P].y = i;
 				n++;
 			}
 		}
