@@ -11,7 +11,7 @@
 #define P 3
 
 
-typedef struct {int x, int y}t_lieu;
+typedef struct {int x; int y}t_lieu;
 t_lieu joueur[P*2];
 
 
