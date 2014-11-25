@@ -5,6 +5,14 @@
 */
 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+#include "Fabien.c"
+#include "Elliot.c"
+
+
 #define N 10
 #define P 3
 
@@ -13,13 +21,6 @@ typedef enum {nord, sud, est, ouest}t_position;
 typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp existe;}t_perso;
 
 t_perso arena[N][N];
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "Fabien.c"
-#include "Elliot.c"
 
 
 
