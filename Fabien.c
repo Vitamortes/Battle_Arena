@@ -19,6 +19,7 @@ t_lieu pos_perso[P*2];
 void personnage () {
 	int i,j;
 	int n = 0;
+	int m = 0;
 	for (i=0; i < N; i++) {
 		for (j=0; j < N; j++) {
 			if (arena[j][i].existe == joueur1) {
@@ -26,10 +27,11 @@ void personnage () {
 				pos_perso[n].y = i;
 				n++;
 			} else if (arena[j][i].existe == joueur2) {
-				pos_perso[n+P].x = j;
-				pos_perso[n+P].y = i;
-				n++;
+				pos_perso[m+P].x = j;
+				pos_perso[m+P].y = i;
+				m++;
 			}
+
 		}
 	}
 }
