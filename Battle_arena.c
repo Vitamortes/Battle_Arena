@@ -1,7 +1,7 @@
-/**	\author Linus König, Candale Elliot
-*	\date 19/11/2014
-*	\version 1.2.0
-*	\file Battle_arena.c	\brief Initialisation du Battle Arena
+/**	\author Linus König
+*	\date 25/11/2014
+*	\version 1.2.1
+*	\file Battle_arena.c	\brief Main du Battle Arena avec quelque fonctions
 */
 
 #include <stdio.h>
@@ -18,11 +18,6 @@ typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp exis
 
 t_perso arena[N][N];
 
-//----------------------------------------------------------------------------------------FONCTION-DE-SAUVEGARDE-DES-POSITIONS----------------------------------------
-
-//Flab a toi de jouer ^^
-
-
 //------------------------------------------------------------------------------------------FONCTION-AFFICHER---------------------------------------------------------
 void affichage(){		/**
 				/ \brief affiche les pieces en fonction des equipes
@@ -30,7 +25,7 @@ void affichage(){		/**
      int i =0;
      int j =0;
             for(i=0;i<N;i++){
-                printf("\n");
+                printf("\n"); 
                 for(j=0;j<N;j++)
                     switch (arena[j][i].existe){
                         case joueur1 : printf("1 ");
@@ -109,7 +104,7 @@ void init(){
 
 
 
-//------------------------------------------------------------------------------------------GESTION-DES-POINTS-D-ACTION------------------------
+//------------------------------------------------------------------------------------------GESTION-DES-POINTS-D-ACTION-----------------------------------------------
 /**
 *	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions et le nombre de pieves vivantes par equipe
 */
@@ -118,6 +113,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 	int choix=0;		//1 déplacement 2 attacker et 3 tourner
 	int nb=0;		//combien de cases a bouger
 	int dep=0;		//deplacement
+	int ff=0;		//friendly fire
 
     affichage();
 	printf("%s %i points d'action\n Saisir 1 pour déplacement 2 pour attacker ou 3 pour tourner\n",arena[x][y].nom ,pa);
@@ -134,7 +130,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 		}
 
 
-//-----------------------------------------------------------------------------------------------DEPLACER---------------------------------
+//-----------------------------------------------------------------------------------------------DEPLACER-------------------------------------------------------------
 		/**
 		*	\brief Déplacement des personnages
 		*/
@@ -226,17 +222,29 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 
 
 
-//---------------------------------------------------------------------------------ATTAQUER---------------------------------------------------
+//---------------------------------------------------------------------------------ATTAQUER---------------------------------------------------------------------------
 		/**
-		*	\brief Attaquer une autre pièce
-		*	\bug Friendly Fire n'est pas encore désactiver ^^ et j'ai pas encore fais que de derrière ils prènnent leurs races genre vie-=attack*2 t'en pense quoi?
+		*	\brief Attaquer une autre piece
 		*/
 		if(choix==2){
 			int range=1;	// préparation des classes avec plus de range
 			if(arena[x][y].place==ouest){
-				if(arena[x-range][y].existe!=vide){
-					arena[x-range][y].vie-=arena[x][y].attack;
-					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
+				if((arena[x][y].existe==joueur1)&&(arena[x-range][y].existe==joueur1)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x][y].existe==joueur2)&&(arena[x-range][y].existe==joueur2)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x-range][y].existe!=vide)&&(ff!=1)){
+					if(arena[x][y].place==arena[x-range][y]){
+						arena[x-range][y].vie-=2*arena[x][y].attack;
+					printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
+					}else{
+						arena[x-range][y].vie-=arena[x][y].attack;
+						printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie\n",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
+					}
 					if(arena[x-range][y].vie<=0){
 						arena[x-range][y].existe=vide;
 						if(arena[x-range][y].existe==joueur1){
@@ -250,11 +258,25 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					printf("L'attaque parts dans le vide\n");
 				}
 				pa--;
+				ff=0;
 			}
 			if(arena[x][y].place==est){
-				if(arena[x+range][y].existe!=vide){
-					arena[x+range][y].vie-=arena[x][y].attack;
-					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x+range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x+range][y].vie);
+				if((arena[x][y].existe==joueur1)&&(arena[x+range][y].existe==joueur1)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x][y].existe==joueur2)&&(arena[x+range][y].existe==joueur2)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x+range][y].existe!=vide)&&(ff!=0)){
+					if(arena[x][y].place==arena[x+range][y]){
+						arena[x+range][y].vie-=2*arena[x][y].attack;
+						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x+range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
+					}else{
+						arena[x+range][y].vie-=arena[x][y].attack;
+						printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie\n",arena[x+range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x+range][y].vie);
+					}
 					if(arena[x+range][y].vie<=0){
 						arena[x+range][y].existe=vide;
 						if(arena[x+range][y].existe==joueur1){
@@ -268,11 +290,25 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					printf("L'attaque parts dans le vide\n");
 				}
 				pa--;
+				ff=0;
 			}
 			if(arena[x][y].place==nord){
-				if(arena[x][y-range].existe!=vide){
-					arena[x][y-range].vie-=arena[x][y].attack;
-					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y-range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
+				if((arena[x][y].existe==joueur1)&&(arena[x][y-range].existe==joueur1)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x][y].existe==joueur2)&&(arena[x][y-range].existe==joueur2)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x][y-range].existe!=vide)&&(ff!=0)){
+					if(arena[x][y].place==arena[x][y-range]){
+						arena[x][y-range].vie-=2*arena[x][y].attack;
+						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x][y-range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
+					}else{
+						arena[x][y-range].vie-=arena[x][y].attack;
+						printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie\n",arena[x][y-range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
+					}
 					if(arena[x][y-range].vie<=0){
 						arena[x][y-range].existe=vide;
 						if(arena[x][y-range].existe==joueur1){
@@ -286,11 +322,25 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					printf("L'attaque parts dans le vide\n");
 				}
 				pa--;
+				ff=0;
 			}
 			if(arena[x][y].place==sud){
-				if(arena[x][y+range].existe!=vide){
-					arena[x][y+range].vie-=arena[x][y].attack;
-					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y+range].vie);
+				if((arena[x][y].existe==joueur1)&&(arena[x][y+range].existe==joueur1)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x][y].existe==joueur2)&&(arena[x][y+range].existe==joueur2)){
+					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
+					ff=1;
+				}
+				if((arena[x][y+range].existe!=vide)&&(ff!=0)){
+					if(arena[x][y].place==arena[x][y+range]){
+						arena[x][y+range].vie-=2*arena[x][y].attack;
+						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie)
+					}else{
+						arena[x][y+range].vie-=arena[x][y].attack;
+						printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y+range].vie);
+					}
 					if(arena[x][y+range].vie<=0){
 						arena[x][y+range].existe=vide;
 						if(arena[x][y+range].existe==joueur1){
@@ -304,12 +354,13 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					printf("L'attaque parts dans le vide\n");
 				}
 				pa--;
+				ff=0;
 			}
 		choix=0;
 		}
 
 
-//------------------------------------------------------------------------------------------------TOURNER------------------------------------------
+//------------------------------------------------------------------------------------------------TOURNER-------------------------------------------------------------
 		/**
 		*	\brief j'essites encore si tourner 90° coutes autant que 180° bref pour l'instant c'est 1pa les deux on verras plus tard
 		*/
@@ -338,6 +389,8 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 	}
 }
 
+
+//----------------------------------------------------------------------------------------------LE-MAIN---------------------------------------------------------------
 int main(){
 	int charger=0;
 	int p1=P;
@@ -352,14 +405,16 @@ int main(){
 		FILE*fs;
 		fs= fopen("sauvegarde.txt","w");
 		/**
-		*	\bug partie Elliot et oublies pas la sauvegarde
+		*	\bug Partie Elliot
 		*/
 		fclose(fs);
 	}
 	if(charger==2){
 		init();
 		while((p1!=0)&&(p2!=0)){
-			gestion_pa(1,1,&p1,&p2); //WTF
+			/**
+			*	\bug partie Fabien
+			*/
 
 		}		
 	}
