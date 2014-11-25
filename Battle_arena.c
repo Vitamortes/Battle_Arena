@@ -18,6 +18,12 @@ typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp exis
 
 t_perso arena[N][N];
 
+//----------------------------------------------------------------------------------------FONCTION-DE-SAUVEGARDE-DES-POSITIONS----------------------------------------
+
+//Flab a toi de jouer ^^
+
+
+//------------------------------------------------------------------------------------------FONCTION-AFFICHER---------------------------------------------------------
 void affichage(){		/**
 				/ \brief affiche les pieces en fonction des equipes
 				*/
@@ -37,6 +43,9 @@ void affichage(){		/**
             }
             printf("\n");
 }
+
+
+//--------------------------------------------------------------------------------------INITIALISATION-DE-L-ARENE-----------------------------------------------------
 /**
 *	\brief Fonction d'initialisation de l'arene et lecture des position des pièces des joueurs dans deux fichiers .txt
 */
@@ -96,6 +105,11 @@ void init(){
 	fclose(f2);
 }
 
+
+
+
+
+//------------------------------------------------------------------------------------------GESTION-DES-POINTS-D-ACTION------------------------
 /**
 *	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions et le nombre de pieves vivantes par equipe
 */
@@ -119,8 +133,10 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 			scanf("%i", &choix);
 		}
 
+
+//-----------------------------------------------------------------------------------------------DEPLACER---------------------------------
 		/**
-		*	\brief Deplacement sans collision d'unité pour l'instant
+		*	\brief Déplacement des personnages
 		*/
 		if(choix==1){
 			printf("Veuillez saisir le nombre de case que vous souhaitez avancer (%i points d'action restants)\n",pa);
@@ -208,6 +224,9 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 		choix=0;
 		}
 
+
+
+//---------------------------------------------------------------------------------ATTAQUER---------------------------------------------------
 		/**
 		*	\brief Attaquer une autre pièce
 		*	\bug Friendly Fire n'est pas encore désactiver ^^ et j'ai pas encore fais que de derrière ils prènnent leurs races genre vie-=attack*2 t'en pense quoi?
@@ -289,6 +308,8 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 		choix=0;
 		}
 
+
+//------------------------------------------------------------------------------------------------TOURNER------------------------------------------
 		/**
 		*	\brief j'essites encore si tourner 90° coutes autant que 180° bref pour l'instant c'est 1pa les deux on verras plus tard
 		*/
@@ -331,7 +352,7 @@ int main(){
 		FILE*fs;
 		fs= fopen("sauvegarde.txt","w");
 		/**
-		*	\bug Ouais ici je galère entre les fscanfs et fprintf donc a voir ensemble
+		*	\bug partie Elliot et oublies pas la sauvegarde
 		*/
 		fclose(fs);
 	}
