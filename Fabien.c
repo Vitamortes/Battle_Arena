@@ -6,15 +6,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
 
 #define N 10
 #define P 3
 
+
 typedef struct {int x, int y}t_lieu;
 t_lieu joueur[P*2];
 
+
+/** \brief fonction de stockage des positions des personnages qui retourne le tableau ainsi obtenu */
 t_lieu personnage (t_perso arena[N][N]) {
 	int i,j;
 	int n = 0;
