@@ -74,6 +74,8 @@ void init(){
 		printf("Positionnement des personnages du joueur1\n");
 		fscanf(f1, "%i", &x);
 		fscanf(f1, "%i", &y);
+		pos_perso[compteur].x = x;
+		pos_perso[compteur].y = y;
 		arena[x][y].existe= joueur1;
 		arena[x][y].attack= rand()%4;
 		arena[x][y].vie= rand()%4;
