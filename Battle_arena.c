@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include "Fabien.c"
+#include "Elliot.c"
 
 #define N 10
 #define P 3
@@ -238,7 +240,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					ff=1;
 				}
 				if((arena[x-range][y].existe!=vide)&&(ff!=1)){
-					if(arena[x][y].place==arena[x-range][y]){
+					if(arena[x][y].place==arena[x-range][y].place){
 						arena[x-range][y].vie-=2*arena[x][y].attack;
 					printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
 					}else{
@@ -270,7 +272,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					ff=1;
 				}
 				if((arena[x+range][y].existe!=vide)&&(ff!=0)){
-					if(arena[x][y].place==arena[x+range][y]){
+					if(arena[x][y].place==arena[x+range][y].place){
 						arena[x+range][y].vie-=2*arena[x][y].attack;
 						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x+range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
 					}else{
@@ -302,7 +304,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					ff=1;
 				}
 				if((arena[x][y-range].existe!=vide)&&(ff!=0)){
-					if(arena[x][y].place==arena[x][y-range]){
+					if(arena[x][y].place==arena[x][y-range].place){
 						arena[x][y-range].vie-=2*arena[x][y].attack;
 						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x][y-range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
 					}else{
@@ -334,9 +336,9 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 					ff=1;
 				}
 				if((arena[x][y+range].existe!=vide)&&(ff!=0)){
-					if(arena[x][y].place==arena[x][y+range]){
+					if(arena[x][y].place==arena[x][y+range].place){
 						arena[x][y+range].vie-=2*arena[x][y].attack;
-						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie)
+						printf("%s a pris %i dégats critiques par %s, il lui reste alors %i points de vie\n",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
 					}else{
 						arena[x][y+range].vie-=arena[x][y].attack;
 						printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y+range].vie);
@@ -420,4 +422,3 @@ int main(){
 	}
 	return EXIT_SUCCESS;
 }
-
