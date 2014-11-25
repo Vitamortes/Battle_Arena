@@ -18,6 +18,12 @@ typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp exis
 
 t_perso arena[N][N];
 
+//----------------------------------------------------------------------------------------FONCTION-DE-SAUVEGARDE-DES-POSITIONS----------------------------------------
+
+//Flab a toi de jouer ^^
+
+
+//------------------------------------------------------------------------------------------FONCTION-AFFICHER---------------------------------------------------------
 void affichage(){		/**
 				/ \brief affiche les pieces en fonction des equipes
 				*/
@@ -26,7 +32,7 @@ void affichage(){		/**
             for(i=0;i<N;i++){
                 printf("\n");
                 for(j=0;j<N;j++)
-                    switch (arena[i][j].existe){
+                    switch (arena[j][i].existe){
                         case joueur1 : printf("1 ");
                                        break;
                         case joueur2 : printf("2 ");
@@ -37,6 +43,9 @@ void affichage(){		/**
             }
             printf("\n");
 }
+
+
+//--------------------------------------------------------------------------------------INITIALISATION-DE-L-ARENE-----------------------------------------------------
 /**
 *	\brief Fonction d'initialisation de l'arene et lecture des position des pièces des joueurs dans deux fichiers .txt
 */
@@ -55,8 +64,8 @@ void init(){
 	/**
 	*	\brief Vidage de l'arène
 	*/
-	for(i=0; i<=N; i++){
-		for(j=0; j<=N; j++){
+	for(i=0; i<N; i++){
+		for(j=0; j<N; j++){
 			arena[i][j].existe= vide;
 		}
 	}
@@ -71,7 +80,7 @@ void init(){
 		arena[x][y].existe= joueur1;
 		arena[x][y].attack= rand()%4;
 		arena[x][y].vie= rand()%4;
-		arena[x][y].place= nord;
+		arena[x][y].place= sud;
 		printf("Veuillez saisir un nom pour votre personnage\n");	/**
 										*	\brief Permet de "personaliser" ses personnages
 										*/
@@ -89,17 +98,22 @@ void init(){
 		arena[x][y].existe= joueur2;
 		arena[x][y].attack= rand()%4;
 		arena[x][y].vie= rand()%4;
-		arena[x][y].place= sud;
+		arena[x][y].place= nord;
 		printf("Veuillez saisir un nom pour votre personnage\n");
 		scanf("%s", arena[x][y].nom);
 	}
 	fclose(f2);
 }
 
+
+
+
+
+//------------------------------------------------------------------------------------------GESTION-DES-POINTS-D-ACTION------------------------
 /**
-*	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions
+*	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions et le nombre de pieves vivantes par equipe
 */
-void gestion_pa(int x, int y){
+void gestion_pa(int x, int y, int* j1, int* j2){
 	int pa=3;		//PA= Points d'actions
 	int choix=0;		//1 déplacement 2 attacker et 3 tourner
 	int nb=0;		//combien de cases a bouger
@@ -110,13 +124,19 @@ void gestion_pa(int x, int y){
 	scanf("%i", &choix);
 	while(pa>0){
 	    affichage();
+		if (choix==0){
+			printf("%s %i points d'action\n Saisir 1 pour déplacement 2 pour attacker ou 3 pour tourner\n",arena[x][y].nom ,pa);
+			scanf("%i", &choix);	
+		}
 		while((choix!=1)&&(choix!=2)&&(choix!=3)){
 			printf("Votre choix est incorrect\n Saisir 1 pour déplacement 2 pour attacker ou 3 pour tourner\n");
 			scanf("%i", &choix);
 		}
 
+
+//-----------------------------------------------------------------------------------------------DEPLACER---------------------------------
 		/**
-		*	\brief Deplacement sans collision d'unité pour l'instant
+		*	\brief Déplacement des personnages
 		*/
 		if(choix==1){
 			printf("Veuillez saisir le nombre de case que vous souhaitez avancer (%i points d'action restants)\n",pa);
@@ -131,7 +151,7 @@ void gestion_pa(int x, int y){
 			*		\brief dep<=nb pour ne pas ignorer la colision unité
 			*/
 			if(arena[x][y].place==nord){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x][y-1].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -149,7 +169,7 @@ void gestion_pa(int x, int y){
 			}
 			dep=0;
 			if(arena[x][y].place==sud){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x][y+1].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -167,7 +187,7 @@ void gestion_pa(int x, int y){
 			}
 			dep=0;
 			if(arena[x][y].place==est){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x+1][y].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -185,7 +205,7 @@ void gestion_pa(int x, int y){
 			}
 			dep=0;
 			if(arena[x][y].place==ouest){
-				while(dep<=nb){
+				while(dep<nb){
 					if(arena[x-1][y].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -201,8 +221,12 @@ void gestion_pa(int x, int y){
 					dep++;
 				}
 			}
+		choix=0;
 		}
 
+
+
+//---------------------------------------------------------------------------------ATTAQUER---------------------------------------------------
 		/**
 		*	\brief Attaquer une autre pièce
 		*	\bug Friendly Fire n'est pas encore désactiver ^^ et j'ai pas encore fais que de derrière ils prènnent leurs races genre vie-=attack*2 t'en pense quoi?
@@ -213,6 +237,15 @@ void gestion_pa(int x, int y){
 				if(arena[x-range][y].existe!=vide){
 					arena[x-range][y].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
+					if(arena[x-range][y].vie<=0){
+						arena[x-range][y].existe=vide;
+						if(arena[x-range][y].existe==joueur1){
+							j1--;
+						}
+						if(arena[x-range][y].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -222,6 +255,15 @@ void gestion_pa(int x, int y){
 				if(arena[x+range][y].existe!=vide){
 					arena[x+range][y].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x+range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x+range][y].vie);
+					if(arena[x+range][y].vie<=0){
+						arena[x+range][y].existe=vide;
+						if(arena[x+range][y].existe==joueur1){
+							j1--;
+						}
+						if(arena[x+range][y].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -231,6 +273,15 @@ void gestion_pa(int x, int y){
 				if(arena[x][y-range].existe!=vide){
 					arena[x][y-range].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y-range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y-range].vie);
+					if(arena[x][y-range].vie<=0){
+						arena[x][y-range].existe=vide;
+						if(arena[x][y-range].existe==joueur1){
+							j1--;
+						}
+						if(arena[x][y-range].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
@@ -240,13 +291,25 @@ void gestion_pa(int x, int y){
 				if(arena[x][y+range].existe!=vide){
 					arena[x][y+range].vie-=arena[x][y].attack;
 					printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie",arena[x][y+range].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x][y+range].vie);
+					if(arena[x][y+range].vie<=0){
+						arena[x][y+range].existe=vide;
+						if(arena[x][y+range].existe==joueur1){
+							j1--;
+						}
+						if(arena[x][y+range].existe==joueur2){
+							j2--;
+						}
+					}
 				}else{
 					printf("L'attaque parts dans le vide\n");
 				}
 				pa--;
 			}
+		choix=0;
 		}
 
+
+//------------------------------------------------------------------------------------------------TOURNER------------------------------------------
 		/**
 		*	\brief j'essites encore si tourner 90° coutes autant que 180° bref pour l'instant c'est 1pa les deux on verras plus tard
 		*/
@@ -270,12 +333,15 @@ void gestion_pa(int x, int y){
 				arena[x][y].place=ouest;
 			}
 			pa--;
+			choix=0;
 		}
 	}
 }
 
 int main(){
 	int charger=0;
+	int p1=P;
+	int p2=P;
 	printf("Continuer la partie sauvegarder ou recommencer une partie? 1=charger 2=new\n");
 	scanf("%i",&charger);
 	while((charger!=1)&&(charger!=2)){
@@ -286,18 +352,17 @@ int main(){
 		FILE*fs;
 		fs= fopen("sauvegarde.txt","w");
 		/**
-		*	\bug Ouais ici je galère entre les fscanfs et fprintf donc a voir ensemble
+		*	\bug partie Elliot et oublies pas la sauvegarde
 		*/
 		fclose(fs);
 	}
 	if(charger==2){
 		init();
-	}
+		while((p1!=0)&&(p2!=0)){
+			gestion_pa(1,1,&p1,&p2); //WTF
 
-	/**
-	*	\brief pour tester a partir d'ici docn pas a prendre en compte pour le cas commun
-	*/
-	gestion_pa(1,1);
+		}		
+	}
 	return EXIT_SUCCESS;
 }
 
