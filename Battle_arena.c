@@ -5,6 +5,9 @@
 */
 
 
+#define N 10
+#define P 3
+
 typedef enum {joueur1, joueur2, vide}t_camp;
 typedef enum {nord, sud, est, ouest}t_position;
 typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp existe;}t_perso;
@@ -18,8 +21,6 @@ t_perso arena[N][N];
 #include "Fabien.c"
 #include "Elliot.c"
 
-#define N 10
-#define P 3
 
 
 //------------------------------------------------------------------------------------------FONCTION-AFFICHER---------------------------------------------------------
