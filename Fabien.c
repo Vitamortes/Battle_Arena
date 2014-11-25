@@ -16,7 +16,7 @@ t_lieu pos_perso[P*2];
 
 
 /** \brief fonction de stockage des positions des personnages qui retourne le tableau ainsi obtenu */
-t_lieu personnage () {
+void personnage () {
 	int i,j;
 	int n = 0;
 	for (i=0; i < N; i++) {
@@ -32,5 +32,4 @@ t_lieu personnage () {
 			}
 		}
 	}
-	return joueur;
 }
