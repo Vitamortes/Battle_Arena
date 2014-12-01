@@ -12,8 +12,8 @@
 
 
 typedef struct {int x; int y;}t_lieu;
-t_lieu pos_perso[P*2];
-
+t_lieu pos_perso[P*2]; /** \brief le tableau contient d'abord les P personnages du joueur  puis les P personnages du joueur 
+*/
 
 /** \brief fonction de stockage des positions des personnages qui retourne le tableau ainsi obtenu */
 void personnage () {
