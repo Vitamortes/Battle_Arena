@@ -65,12 +65,3 @@ void save_game(){
     }
     fclose(fic);
 }
-
-
-int main(){
-	
-	if(charger==1){
-		load_game();
-	}
-	
-}

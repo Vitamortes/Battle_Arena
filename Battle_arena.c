@@ -410,12 +410,7 @@ int main(){
 		scanf("%i",&charger);
 	}
 	if(charger==1){
-		FILE*fs;
-		fs= fopen("sauvegarde.txt","w");
-		/**
-		*	\bug Partie Elliot
-		*/
-		fclose(fs);
+		load_game();
 	}
 	if(charger==2){
 		init();
