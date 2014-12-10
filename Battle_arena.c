@@ -16,11 +16,17 @@ void affichage(){		/**
                 printf("\n"); 
                 for(j=0;j<N;j++)
                     switch (arena[j][i].existe){
-                        case joueur1 : printf("1 ");
+                        case joueur1 : 	printf(" _____ ");
+					printf(" | 1 | ");
+					printf(" _____ ");
                                        break;
-                        case joueur2 : printf("2 ");
+                        case joueur2 :	printf(" _____ "); 
+					printf(" | 2 | ");
+					printf(" _____ ");
                                        break;
-                        default      : printf("- ");
+                        default      : 	printf(" _____ ");
+					printf(" |   | ");
+					printf(" ____ ");
                                        break;
                     }
             }
