@@ -10,23 +10,34 @@ t_perso arena[N][N];
 void affichage(){		/**
 				/ \brief affiche les pieces en fonction des equipes
 				*/
-     int i =0;
-     int j =0;
+     	int i =0;
+     	int j =0;
+	int compt=0;
             for(i=0;i<N;i++){
-                printf("\n"); 
+                for(compt=0;compt<N;compt++){
+			printf("___");
+		}
+		printf("\n");
                 for(j=0;j<N;j++)
                     switch (arena[j][i].existe){
-                        case joueur1 : 	printf(" _____ ");
-					printf(" | 1 | ");
-					printf(" _____ ");
+
+                        case joueur1 :	if(j==N-1){
+						printf(" | 1 | ");
+					}else{ 	
+						printf(" | 1  ");
+					}
                                        break;
-                        case joueur2 :	printf(" _____ "); 
-					printf(" | 2 | ");
-					printf(" _____ ");
+                        case joueur2 :	if(j==N-1){
+						printf(" | 2 | ");
+					}else{ 	
+						printf(" | 2  ");
+					}
                                        break;
-                        default      : 	printf(" _____ ");
-					printf(" |   | ");
-					printf(" ____ ");
+                        default      : 	if(j==N-1){
+						printf(" |   | ");
+					}else{ 	
+						printf(" |    ");
+					}
                                        break;
                     }
             }

@@ -1,20 +1,18 @@
-Priorités:
+			Projet Battle Tactics: BATTLE ARENA
 
--Faire marcher le chargement de sauvegarde
--fonction gestion de position des personnages
+Candale Elliot
 
-options:
+König Linus
 
--classes
--arenes
+Ciron Fabien
 
 
+	Travail restant:
 
+		-Faud que sa compiles avec le chargement
 
+		-intégré la fonction gestion_pers
 
+		-Posibilités des différentes classes
 
-
-
-
-
-GRAPHIQUE
+		-Interface Graphique
