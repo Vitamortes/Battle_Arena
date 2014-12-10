@@ -1,6 +1,6 @@
 /**	\author Linus König
-*	\date 25/11/2014
-*	\version 1.2.1
+*	\date 10/12/2014
+*	\version 2.0.0
 *	\file Battle_arena.c	\brief Main du Battle Arena avec quelque fonctions
 */
 #include "fonctions.h"
