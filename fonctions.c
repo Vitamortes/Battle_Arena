@@ -67,23 +67,11 @@ void save_game(){
     fclose(fic);
 }
 
-/** \brief fonction de stockage des positions des personnages qui retourne le tableau ainsi obtenu */
-void personnage () {
-	int i,j;
-	int n = 0;
-	int m = 0;
-	for (i=0; i < N; i++) {
-		for (j=0; j < N; j++) {
-			if (arena[j][i].existe == joueur1) {
-				pos_perso[n].x = j;
-				pos_perso[n].y = i;
-				n++;
-			} else if (arena[j][i].existe == joueur2) {
-				pos_perso[m+P].x = j;
-				pos_perso[m+P].y = i;
-				m++;
-			}
+/** \brief on fini et on commente après */
+void gest_pers(int x, int y, int indice) {
+	int tabj1[2];
+	int tabj2[2];
 
-		}
-	}
+	int i;
+
 }

@@ -39,10 +39,8 @@ void init(){
 	int y;
 	int compteur;
 
-	FILE*f1;
-	FILE*f2;
-	f1= fopen("joueur1.txt", "r");
-	f2= fopen("joueur2.txt", "r");
+	FILE*f1= fopen("joueur1.txt", "r");
+	FILE*f2= fopen("joueur2.txt", "r");
 
 	/**
 	*	\brief Vidage de l'arène
@@ -60,8 +58,6 @@ void init(){
 		printf("Positionnement des personnages du joueur1\n");
 		fscanf(f1, "%i", &x);
 		fscanf(f1, "%i", &y);
-		pos_perso[compteur].x = x;
-		pos_perso[compteur].y = y;
 		arena[x][y].existe= joueur1;
 		arena[x][y].attack= rand()%4;
 		arena[x][y].vie= rand()%4;
@@ -98,14 +94,15 @@ void init(){
 /**
 *	\brief	Gestion des PA avec en paramètre la position de la piece executant les actions et le nombre de pieves vivantes par equipe
 */
-void gestion_pa(int x, int y, int* j1, int* j2){
+t_actu gestion_pa(int x, int y, int* j1, int* j2){
 	int pa=3;		//PA= Points d'actions
 	int choix=0;		//1 déplacement 2 attacker et 3 tourner
 	int nb=0;		//combien de cases a bouger
 	int dep=0;		//deplacement
 	int ff=0;		//friendly fire
+	t_actu actuel;		//situation actuelle
 
-    affichage();
+    	affichage();
 	printf("%s %i points d'action\n Saisir 1 pour déplacement 2 pour attacker ou 3 pour tourner\n",arena[x][y].nom ,pa);
 	scanf("%i", &choix);
 	while(pa>0){
@@ -128,7 +125,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 			printf("Veuillez saisir le nombre de case que vous souhaitez avancer (%i points d'action restants)\n",pa);
 			scanf("%i",&nb);
 			while(nb>pa){
-				printf("il ne vous reste que %i points d'action cette action est donc impossible veuillez resaisir\n",pa);
+				printf("il ne vous reste que %i points d'action cette action est donc impossible veuillez ressaisir\n",pa);
 				scanf("%i",&nb);
 			}
 			pa-=nb;
@@ -235,7 +232,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 						arena[x-range][y].vie-=arena[x][y].attack;
 						printf("%s a pris %i dégats par %s, il lui reste alors %i points de vie\n",arena[x-range][y].nom ,arena[x][y].attack ,arena[x][y].nom ,arena[x-range][y].vie);
 					}
-					if(arena[x-range][y].vie<=0){
+					if(arena[x-range][y].vie<=0){ /*gestion des personnages on envois xy et on sait qui est mort le tableau de la fonction personnage est imédiatement mis à jour, chacunes de ses cases représente un personnage*/
 						arena[x-range][y].existe=vide;
 						if(arena[x-range][y].existe==joueur1){
 							j1--;
@@ -352,7 +349,7 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 
 //------------------------------------------------------------------------------------------------TOURNER-------------------------------------------------------------
 		/**
-		*	\brief j'essites encore si tourner 90° coutes autant que 180° bref pour l'instant c'est 1pa les deux on verras plus tard
+		*	\brief tourner 90° coute 1pa comme 180°
 		*/
 		if(choix==3){
 			int posi=0;
@@ -385,6 +382,8 @@ int main(){
 	int charger=0;
 	int p1=P;
 	int p2=P;
+	int tour=2;
+	int numjoueur=0;
 	printf("Continuer la partie sauvegarder ou recommencer une partie? 1=charger 2=new\n");
 	scanf("%i",&charger);
 	while((charger!=1)&&(charger!=2)){
@@ -397,10 +396,12 @@ int main(){
 	if(charger==2){
 		init();
 		while((p1!=0)&&(p2!=0)){
-			/**
-			*	\bug partie Fabien
-			*/
-
+			if(tour==2)
+				tour=1;
+			else 
+				tour=2;
+					
+			
 		}		
 	}
 	return EXIT_SUCCESS;
