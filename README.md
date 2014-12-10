@@ -7,12 +7,12 @@ König Linus
 Ciron Fabien
 
 
-Travail restant:
+	Travail restant:
 
-	-Faud que sa compiles avec le chargement
+		-Faud que sa compiles avec le chargement
 
-	-intégré la fonction gestion_pers
+		-intégré la fonction gestion_pers
 
-	-Posibilités des différentes classes
+		-Posibilités des différentes classes
 
-	-Interface Graphique
+		-Interface Graphique
