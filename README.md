@@ -1,20 +1,15 @@
-Priorités:
+Candale Elliot
+König Linus
+Ciron Fabien
 
--Faire marcher le chargement de sauvegarde
--fonction gestion de position des personnages
+Projet Battle Tactics: BATTLE ARENA
 
-options:
+Travail restant:
 
--classes
--arenes
+	-Faud que sa compiles avec le chargement
 
+	-intégré la fonction gestion_pers
 
+	-Posibilités des différentes classes
 
-
-
-
-
-
-
-
-GRAPHIQUE
+	-Interface Graphique
