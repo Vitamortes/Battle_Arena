@@ -1,11 +1,11 @@
+			Projet Battle Tactics: BATTLE ARENA
+
 Candale Elliot
 
 König Linus
 
 Ciron Fabien
 
-
-Projet Battle Tactics: BATTLE ARENA
 
 Travail restant:
 
