@@ -68,7 +68,7 @@ void save_game(){
 }
 
 /** \brief on fini et on commente après */
-void gest_pers(int x, int y, int indice) {
+void gest_pers(int x, int y, ) {
 	int tabj1[2];
 	int tabj2[2];
 
