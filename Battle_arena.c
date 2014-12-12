@@ -1,6 +1,6 @@
 /**	\author Linus König
-*	\date 10/12/2014
-*	\version 2.0.0
+*	\date 12/12/2014
+*	\version 2.0.1
 *	\file Battle_arena.c	\brief Main du Battle Arena avec quelque fonctions
 */
 #include "fonctions.h"
@@ -18,28 +18,32 @@ void affichage(){		/**
 			printf("___");
 		}
 		printf("\n");
-                for(j=0;j<N;j++)
-                    switch (arena[j][i].existe){
+                for(j=0;j<N;j++){
+                	switch (arena[j][i].existe){
 
-                        case joueur1 :	if(j==N-1){
-						printf(" | 1 | ");
-					}else{ 	
-						printf(" | 1  ");
-					}
-                                       break;
-                        case joueur2 :	if(j==N-1){
-						printf(" | 2 | ");
-					}else{ 	
-						printf(" | 2  ");
-					}
-                                       break;
-                        default      : 	if(j==N-1){
-						printf(" |   | ");
-					}else{ 	
-						printf(" |    ");
-					}
-                                       break;
-                    }
+                       		case joueur1 :	if(j==N-1){
+							printf(" | 1 | ");
+						}else{ 	
+							printf(" | 1  ");
+						}
+                                       		break;
+                        	case joueur2 :	if(j==N-1){
+							printf(" | 2 | ");
+						}else{ 	
+							printf(" | 2  ");
+						}
+                                       		break;
+                        	default      : 	if(j==N-1){
+							printf(" |   | ");
+						}else{ 	
+							printf(" |    ");
+						}
+                                       		break;
+             		}
+			for(compt=0;compt<N;compt++){
+				printf("___");
+			}
+		}
             }
             printf("\n");
 }
@@ -55,6 +59,8 @@ void init(){
 	int x;
 	int y;
 	int compteur;
+	int pc=3;		//points de compétances
+	int placer;	//pour placer le pc
 
 	FILE*f1= fopen("joueur1.txt", "r");
 	FILE*f2= fopen("joueur2.txt", "r");
@@ -76,10 +82,29 @@ void init(){
 		fscanf(f1, "%i", &x);
 		fscanf(f1, "%i", &y);
 		arena[x][y].existe= joueur1;
-		arena[x][y].attack= rand()%4;
-		arena[x][y].vie= rand()%4;
+		arena[x][y].attack= 1;
+		arena[x][y].vie= 1;
+		arena[x][y].range=1
+		printf("votre personnage a %i points de vie %i points d'attack et %i de range \n il vous reste %i points de compétance a placer \n 1: Attack 2:Vie 3:Range\n");
+		scanf("%i",&placer);
+		while(pc>0){
+			switch(placer){
+			
+				case 1:	arena[x][y].attack++;
+					pc--;
+					break;
+
+				case 2:	arena[x][y].vie++;
+					pc--;
+					break;
+
+				case 3: arena[x][y].range++;
+					pc++;
+					break;		
+			}
+		}
 		arena[x][y].place= sud;
-		printf("Veuillez saisir un nom pour votre personnage\n");	/**
+		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	/**
 										*	\brief Permet de "personaliser" ses personnages
 										*/
 		scanf("%s", arena[x][y].nom);
@@ -94,8 +119,27 @@ void init(){
 		fscanf(f2, "%i", &x);
 		fscanf(f2, "%i", &y);
 		arena[x][y].existe= joueur2;
-		arena[x][y].attack= rand()%4;
-		arena[x][y].vie= rand()%4;
+		arena[x][y].attack= 1;
+		arena[x][y].vie= 1;
+		arena[x][y].range=1
+		printf("votre personnage a %i points de vie %i points d'attack et %i de range \n il vous reste %i points de compétance a placer \n 1: Attack 2:Vie 3:Range\n");
+		scanf("%i",&placer);
+		while(pc>0){
+			switch(placer){
+			
+				case 1:	arena[x][y].attack++;
+					pc--;
+					break;
+
+				case 2:	arena[x][y].vie++;
+					pc--;
+					break;
+
+				case 3: arena[x][y].range++;
+					pc++;
+					break;		
+			}
+		}
 		arena[x][y].place= nord;
 		printf("Veuillez saisir un nom pour votre personnage\n");
 		scanf("%s", arena[x][y].nom);
@@ -161,6 +205,7 @@ t_actu gestion_pa(int x, int y, int* j1, int* j2){
 					arena[x][y-1].vie= arena[x][y].vie;
 					arena[x][y-1].place= arena[x][y].place;
 					arena[x][y-1].existe= arena[x][y].existe;
+					arena[x][y-1].range= arena[x][y].range;
 
 					arena[x][y].existe= vide;
 					y--;
@@ -179,6 +224,7 @@ t_actu gestion_pa(int x, int y, int* j1, int* j2){
 					arena[x][y+1].vie= arena[x][y].vie;
 					arena[x][y+1].place= arena[x][y].place;
 					arena[x][y+1].existe= arena[x][y].existe;
+					arena[x][y+1].range= arena[x][y].range;
 
 					arena[x][y].existe= vide;
 					y++;
@@ -197,6 +243,7 @@ t_actu gestion_pa(int x, int y, int* j1, int* j2){
 					arena[x+1][y].vie= arena[x][y].vie;
 					arena[x+1][y].place= arena[x][y].place;
 					arena[x+1][y].existe= arena[x][y].existe;
+					arena[x+1][y].range= arena[x][y].range;
 
 					arena[x][y].existe= vide;
 					x++;
@@ -215,6 +262,7 @@ t_actu gestion_pa(int x, int y, int* j1, int* j2){
 					arena[x-1][y].vie= arena[x][y].vie;
 					arena[x-1][y].place= arena[x][y].place;
 					arena[x-1][y].existe= arena[x][y].existe;
+					arena[x-1][y].range= arena[x][y].range;
 
 					arena[x][y].existe= vide;
 					x--;
@@ -231,7 +279,7 @@ t_actu gestion_pa(int x, int y, int* j1, int* j2){
 		*	\brief Attaquer une autre piece
 		*/
 		if(choix==2){
-			int range=1;	// préparation des classes avec plus de range
+			range=arena[x][y].range;	//gestion de la distance necassaire pour attaquer
 			if(arena[x][y].place==ouest){
 				if((arena[x][y].existe==joueur1)&&(arena[x-range][y].existe==joueur1)){
 					printf("on n'attaques pas les amis!!! 1 points d'action perdu pour pénalité\n");
