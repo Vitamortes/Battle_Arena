@@ -537,23 +537,20 @@ void gest_pers() {
 	t_actu tabj1[P];
 	t_actu tabj2[P];	
 	
-	if(tour==0){
-		init_gest(tabj1, tabj2, &j1, &j2);
-	}
-	else{
-		while((j1act!=j1)&&(j2act!=j2)){
-			if((tour==1)&&(j1act<j1)){
-				gestion_pa(tabj1[j1act].x,tabj1[j1act].y, &j1, &j2);
-				j1act++;
-				tour=2;
-			}
-			if((tour==2)&&(j2act<j2)){
-				gestion_pa(tabj2[j2act].x,tabj2[j2act].y, &j1, &j2);
-				j2act++;
-				tour=1;
-			}
-			j1act=0;
-			j2act=0;
+	init_gest(tabj1, tabj2, &j1, &j2);
+	while((j1act!=j1)&&(j2act!=j2)){
+		if((tour==1)&&(j1act<j1)){
+			gestion_pa(tabj1[j1act].x,tabj1[j1act].y, &j1, &j2);
+			j1act++;
+			tour=2;
 		}
+		if((tour==2)&&(j2act<j2)){
+			gestion_pa(tabj2[j2act].x,tabj2[j2act].y, &j1, &j2);
+			j2act++;
+			tour=1;
+		}
+		j1act=0;
+		j2act=0;
 	}
+	
 }

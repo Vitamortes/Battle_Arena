@@ -11,6 +11,7 @@
 void load_game();
 void save_game();
 void init();
+void gest_pers();
 
 typedef enum {joueur1, joueur2, vide}t_camp;
 typedef enum {nord, sud, est, ouest}t_position;
@@ -19,6 +20,6 @@ typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp exis
 typedef struct {int x; int y;}t_actu;
 
 extern t_perso arena[N][N];
-int tour;
+extern int tour;
 
 

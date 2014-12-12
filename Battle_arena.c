@@ -5,14 +5,11 @@
 */
 #include "fonctions.h"
 t_perso arena[N][N];
-
+int tour;
 
 //----------------------------------------------------------------------------------------------LE-MAIN---------------------------------------------------------------
 int main(){
 	int charger=0;
-	int p1=P;
-	int p2=P;
-	int tour=2;
 	printf("Continuer la partie sauvegarder ou recommencer une partie? 1=charger 2=new\n");
 	scanf("%i",&charger);
 	while((charger!=1)&&(charger!=2)){
@@ -24,14 +21,7 @@ int main(){
 	}
 	if(charger==2){
 		init();
-		while((p1!=0)&&(p2!=0)){
-			if(tour==2)
-				tour=1;
-			else 
-				tour=2;
-					
-			
-		}		
+		gest_pers();		
 	}
 	return EXIT_SUCCESS;
 }
