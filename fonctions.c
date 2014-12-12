@@ -28,6 +28,7 @@ void load_game(){
             }
             fscanf(fic,"%s", car);
             strcpy(arena[j][i].nom, car);
+	    fscanf(fic,"%i", &tour);
         }
     }
     fclose(fic);
@@ -59,6 +60,7 @@ void save_game(){
                                                     case ouest: fprintf(fic, "3");break;
                                             }
                                             fprintf(fic,"%s ", arena[j][i].nom);
+					    fprintf(fic,"%i", tour);
 
                                             break;
                             }
@@ -67,11 +69,56 @@ void save_game(){
     fclose(fic);
 }
 
+void init_gest(t_actu *tabj1, t_actu *tabj2,int *pj1,int *pj2){
+	int i,j;
+	int j1=0;
+	int j2=0;
+	
+	for(i=0;i<N;i++)
+		for(j=0;j<N;j++){
+			if(arena[j][i].existe=joueur1){
+				*tabj1[j1]=arena[j][i];
+				*pj1+=1;
+			}
+			else if(arena[j][i].existe=joueur2){
+				*tabj2[j2]=arena[j][i];
+				*pj2+=1;
+			}
+		}
+
+}
+
 /** \brief on fini et on commente après */
-void gest_pers(int x, int y, ) {
+void gest_pers() {
 	int tabj1[2];
 	int tabj2[2];
+	int j1 =0;
+	int j2 =0;
+	int j1act=0;
+	int j2act=0;
 
-	int i;
-
+	t_perso tabj1[P];
+	t_perso tabj2[P];	
+	
+	t_perso* tabj1;
+	t_perso* tabj2;
+	
+	if(tour==0){
+		init_gest(tabj1, tabj2, &j1, &j2);
+	}
+	else
+		while((j1act!=j1)&&(j2act!=j2)){
+			if((tour==1))&&(j1act<j1)){
+				gestion_pa(tabj1[j1act].x,tabj1[j1act].y, &j1, &j2);
+				j1act++;
+				tour=2;
+			}
+			if((tour==2))&&(j2act<j2)){
+				gestion_pa(tabj2[j2act].x,tabj2[j2act].y, &j1, &j2);
+				j2act++;
+				tour=1;
+			}
+			j1act=0;
+			j2act=0;
+		}
 }
