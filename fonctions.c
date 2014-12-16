@@ -84,7 +84,7 @@ void affichage(){		/**
 	 for(compt=0;compt<N;compt++){
 			printf("______");
 		}
-		printf("\n");
+		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
 
 
@@ -250,6 +250,10 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 			*/
 			if(arena[x][y].place==nord){
 				while(dep<nb){
+					if(y-1<0){
+						arena[x][y].existe=vide;
+						printf("\n\n\n\n\n\n\n\n\n\n\n\nL'unité tombe du plateau et meurt\n");
+					}else 
 					if(arena[x][y-1].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -269,6 +273,10 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 			dep=0;
 			if(arena[x][y].place==sud){
 				while(dep<nb){
+					if(y+1>N){
+						arena[x][y].existe=vide;
+						printf("\n\n\n\n\n\n\n\n\n\n\n\nL'unité tombe du plateau et meurt\n");
+					}else
 					if(arena[x][y+1].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -288,6 +296,10 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 			dep=0;
 			if(arena[x][y].place==est){
 				while(dep<nb){
+					if(x+1>N){
+						arena[x][y].existe=vide;
+						printf("\n\n\n\n\n\n\n\n\n\n\n\nL'unité tombe du plateau et meurt\n");
+					}else
 					if(arena[x+1][y].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
@@ -307,6 +319,10 @@ void gestion_pa(int x, int y, int* j1, int* j2){
 			dep=0;
 			if(arena[x][y].place==ouest){
 				while(dep<nb){
+					if(x-1<0){
+						arena[x][y].existe=vide;
+						printf("\n\n\n\n\n\n\n\n\n\n\n\nL'unité tombe du plateau et meurt\n");
+					}else
 					if(arena[x-1][y].existe!=vide){
 						printf("Unité sur l'emplacement spécifié\n");
 						break;
