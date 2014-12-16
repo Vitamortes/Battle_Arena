@@ -7,7 +7,7 @@ void affichage(){		/**
      	int i =0;
      	int j =0;
 	int compt=0;
-            for(i=0;i<N;i++){
+        for(i=0;i<N;i++){
                 for(compt=0;compt<N;compt++){
 			printf("______");
 		}
@@ -36,6 +36,10 @@ void affichage(){		/**
              		}
 		}
 	}
+	 for(compt=0;compt<N;compt++){
+			printf("______");
+		}
+		printf("\n");
 }
 
 
@@ -551,13 +555,11 @@ void gest_pers() {
 	init_gest(tabj1, tabj2, &j1, &j2);
 	while((j1act!=j1)&&(j2act!=j2)){
 		if((tour==1)&&(j1act<j1)){
-			affichage();
 			gestion_pa(tabj1[j1act].x,tabj1[j1act].y, &j1, &j2);
 			j1act++;
 			tour=2;
 		}
 		if((tour==2)&&(j2act<j2)){
-			affichage();
 			gestion_pa(tabj2[j2act].x,tabj2[j2act].y, &j1, &j2);
 			j2act++;
 			tour=1;
