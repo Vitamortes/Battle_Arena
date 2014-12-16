@@ -80,22 +80,26 @@ void init(){
 		arena[x][y].vie= 1;
 		arena[x][y].range=1;
 		printf("votre personnage a %i points de vie %i points d'attack et %i de range \n il vous reste %i points de compétance a placer \n 1: Attack 2:Vie 3:Range\n", arena[x][y].vie, arena[x][y].attack, arena[x][y].range, pc);
-		scanf("%i",&placer);
+		
 		while(pc>0){
-			switch(placer){
-			
-				case 1:	arena[x][y].attack++;
-					pc--;
-					break;
+			scanf("%i",&placer);
+			if(placer==1){
+				arena[x][y].attack++;
+				pc--;
+				printf("Point attribué\n");
+			}
+	
+			if(placer==2){
+				arena[x][y].vie++;
+				pc--;
+				printf("Point attribué\n");
+			}
 
-				case 2:	arena[x][y].vie++;
-					pc--;
-					break;
-
-				case 3: arena[x][y].range++;
-					pc--;
-					break;		
-			}printf("finbouclej1!");
+			if(placer==3){
+				arena[x][y].range++;
+				pc--;
+				printf("Point attribué\n");
+			}					
 		}
 		arena[x][y].place= sud;
 		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	/**
@@ -105,7 +109,7 @@ void init(){
 		pc=3;
 		
 	}
-	fclose(f1);printf("finj1!");
+	fclose(f1);
 
 	/**
 	*	\brief Personnages du Joueur2
@@ -119,26 +123,29 @@ void init(){
 		arena[x][y].vie= 1;
 		arena[x][y].range=1;
 		printf("votre personnage a %i points de vie %i points d'attack et %i de range \n il vous reste %i points de compétance a placer \n 1: Attack 2:Vie 3:Range\n", arena[x][y].vie, arena[x][y].attack, arena[x][y].range, pc);
-		scanf("%i",&placer);
+		
 		while(pc>0){
-			switch(placer){
-			
-				case 1:	arena[x][y].attack++;
-					pc--;
-					break;
-
-				case 2:	arena[x][y].vie++;
-					pc--;
-					break;
-
-				case 3: arena[x][y].range++;
-					pc--;
-					break;		
+			scanf("%i",&placer);
+			if(placer==1){
+				arena[x][y].attack++;
+				pc--;
+				printf("Point attribué\n");
 			}
-		printf("finbouclej2!");
+	
+			if(placer==2){
+				arena[x][y].vie++;
+				pc--;
+				printf("Point attribué\n");
+			}
+
+			if(placer==3){
+				arena[x][y].range++;
+				pc--;
+				printf("Point attribué\n");
+			}					
 		}
-		arena[x][y].place= nord;
-		printf("Veuillez saisir un nom pour votre personnage\n");
+		arena[x][y].place= sud;
+		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	
 		scanf("%s", arena[x][y].nom);
 		pc=3;
 		printf("finj2!");
