@@ -150,10 +150,9 @@ void init(){
 		scanf("%s", arena[x][y].nom);
 		pc=3;
 		printf("\n\n\n\n\n");
+		
 	}
 	fclose(f2);
-	printf("fin!");
-
 }
 
 
