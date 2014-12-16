@@ -102,11 +102,11 @@ void init(){
 			}					
 		}
 		arena[x][y].place= sud;
-		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	/**
-										*	\brief Permet de "personaliser" ses personnages
-										*/
+		printf("Ce personnage as donc %i attack %i vie %i range\n",arena[x][y].attack ,arena[x][y].vie ,arena[x][y].range);
+		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	
 		scanf("%s", arena[x][y].nom);
 		pc=3;
+		printf("\n\n\n\n\n");
 		
 	}
 	fclose(f1);
@@ -144,11 +144,12 @@ void init(){
 				printf("Point attribué\n");
 			}					
 		}
-		arena[x][y].place= sud;
+		arena[x][y].place= nord;
+		printf("Ce personnage as donc %i attack %i vie %i range\n",arena[x][y].attack ,arena[x][y].vie ,arena[x][y].range);
 		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	
 		scanf("%s", arena[x][y].nom);
 		pc=3;
-		printf("finj2!");
+		printf("\n\n\n\n\n");
 	}
 	fclose(f2);
 	printf("fin!");
