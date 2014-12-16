@@ -5,7 +5,7 @@
 
 
 
-#define N 10
+#define N 20
 #define P 3
 
 void load_game();

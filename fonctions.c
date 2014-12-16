@@ -71,7 +71,7 @@ void init(){
 	/**
 	*	\brief Personnages du joueur1
 	*/
-	for(compteur=0; compteur<P; compteur++){
+	for(compteur=P; compteur>0; compteur--){
 		printf("Positionnement des personnages du joueur1\n");
 		fscanf(f1, "%i", &x);
 		fscanf(f1, "%i", &y);
@@ -93,22 +93,24 @@ void init(){
 					break;
 
 				case 3: arena[x][y].range++;
-					pc++;
+					pc--;
 					break;		
-			}
+			}printf("finbouclej1!");
 		}
 		arena[x][y].place= sud;
 		printf("Veuillez saisir un nom pour le personnage que vous venez de crée\n");	/**
 										*	\brief Permet de "personaliser" ses personnages
 										*/
 		scanf("%s", arena[x][y].nom);
+		pc=3;
+		
 	}
-	fclose(f1);
+	fclose(f1);printf("finj1!");
 
 	/**
 	*	\brief Personnages du Joueur2
 	*/
-	for(compteur=0; compteur<P; compteur++){
+	for(compteur=P; compteur>0; compteur--){
 		printf("Positionnement des personnages du joueur2\n");
 		fscanf(f2, "%i", &x);
 		fscanf(f2, "%i", &y);
@@ -130,15 +132,20 @@ void init(){
 					break;
 
 				case 3: arena[x][y].range++;
-					pc++;
+					pc--;
 					break;		
 			}
+		printf("finbouclej2!");
 		}
 		arena[x][y].place= nord;
 		printf("Veuillez saisir un nom pour votre personnage\n");
 		scanf("%s", arena[x][y].nom);
+		pc=3;
+		printf("finj2!");
 	}
 	fclose(f2);
+	printf("fin!");
+
 }
 
 
