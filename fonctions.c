@@ -12,21 +12,66 @@ void affichage(){		/**
 			printf("______");
 		}
 		printf("\n");
+		//ʌV<>
                 for(j=0;j<N;j++){
                 	switch (arena[j][i].existe){
 
                        		case joueur1 :	if(j==N-1){
-							printf("|> 1  |\n");
+							if(arena[j][i].place==nord){
+								printf("|ʌ 1  |\n");
+							}
+							if(arena[j][i].place==sud){
+								printf("|v 1  |\n");
+							}
+							if(arena[j][i].place==est){
+								printf("|> 1  |\n");
+							}
+							if(arena[j][i].place==ouest){
+								printf("|< 1  |\n");
+							}
 						}else{ 	
-							printf("|> 1  ");
+							if(arena[j][i].place==nord){
+								printf("|ʌ 1  ");
+							}
+							if(arena[j][i].place==sud){
+								printf("|v 1  ");
+							}
+							if(arena[j][i].place==est){
+								printf("|> 1  ");
+							}
+							if(arena[j][i].place==ouest){
+								printf("|< 1  ");
+							}
 						}
                                        		break;
                         	case joueur2 :	if(j==N-1){
-							printf("|> 2  |\n");
+							if(arena[j][i].place==nord){
+								printf("|ʌ 2  |\n");
+							}
+							if(arena[j][i].place==sud){
+								printf("|v 2  |\n");
+							}
+							if(arena[j][i].place==est){
+								printf("|> 2  |\n");
+							}
+							if(arena[j][i].place==ouest){
+								printf("|< 2  |\n");
+							}
 						}else{ 	
-							printf("|> 2  ");
+							if(arena[j][i].place==nord){
+								printf("|ʌ 2  ");
+							}
+							if(arena[j][i].place==sud){
+								printf("|v 2  ");
+							}
+							if(arena[j][i].place==est){
+								printf("|> 2  ");
+							}
+							if(arena[j][i].place==ouest){
+								printf("|< 2  ");
+							}
 						}
-                                       		break;
+                                       		break;;
                         	default      : 	if(j==N-1){
 							printf("|     |\n");
 						}else{ 	
