@@ -9,28 +9,28 @@ void affichage(){		/**
 	int compt=0;
             for(i=0;i<N;i++){
                 for(compt=0;compt<N;compt++){
-			printf(" ______");
+			printf("______");
 		}
 		printf("\n");
                 for(j=0;j<N;j++){
                 	switch (arena[j][i].existe){
 
                        		case joueur1 :	if(j==N-1){
-							printf(" | 1 |\n");
+							printf("|> 1  |\n");
 						}else{ 	
-							printf(" | 1  ");
+							printf("|> 1  ");
 						}
                                        		break;
                         	case joueur2 :	if(j==N-1){
-							printf(" | 2 |\n");
+							printf("|> 2  |\n");
 						}else{ 	
-							printf(" | 2  ");
+							printf("|> 2  ");
 						}
                                        		break;
                         	default      : 	if(j==N-1){
-							printf(" |    |\n");
+							printf("|     |\n");
 						}else{ 	
-							printf(" |    ");
+							printf("|     ");
 						}
                                        		break;
              		}
