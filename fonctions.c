@@ -586,15 +586,15 @@ void init_gest(t_actu *tabj1, t_actu *tabj2,int *pj1,int *pj2){
 	int i,j;
 	int j1=0;
 	int j2=0;
-	
-	for(i=0;i<N;i++)
-		for(j=0;j<N;j++){
-			if(arena[j][i].existe==joueur1){
+
+	for(j=0;j<N;j++)
+		for(i=0;i<N;i++){
+			if(arena[i][j].existe==joueur1){
 				tabj1[j1]. x=i;
 				tabj1[j1]. y=j;
 				*pj1+=1;
 			}
-			else if(arena[j][i].existe==joueur2){
+			else if(arena[i][j].existe==joueur2){
 				tabj2[j2]. x=i;
 				tabj2[j2]. y=j;
 				*pj2+=1;
