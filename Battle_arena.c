@@ -23,5 +23,6 @@ int main(){
 		init();
 		gest_pers();		
 	}
+	printf("j'aime les chamalows\n");
 	return EXIT_SUCCESS;
 }

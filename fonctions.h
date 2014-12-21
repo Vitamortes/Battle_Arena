@@ -17,7 +17,7 @@ typedef enum {joueur1, joueur2, vide}t_camp;
 typedef enum {nord, sud, est, ouest}t_position;
 
 typedef struct {char nom[20]; int attack; int vie; t_position place; t_camp existe; int range;}t_perso;
-typedef struct {int x; int y;}t_actu;
+typedef struct {int x; int y; int indice;}t_actu;
 
 extern t_perso arena[N][N];
 extern int tour;
