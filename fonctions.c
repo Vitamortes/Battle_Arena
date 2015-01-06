@@ -657,5 +657,8 @@ void gest_pers() {
 		if(j2act==j2)
 			j2act=0;
 	}
-	
+	if((j2==0))	
+		printf("joueur 1 est le grand gagnant!!!\n");
+	else	
+		printf("joueur 2 est le grand gagnant!!!\n");
 }
